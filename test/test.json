@@ -1,0 +1,40 @@
+{
+	"tables": [ 
+		{
+			"file": "annot_table1.tsv",
+			"separator": "\t",
+			"key_column": "gene_id_col",
+			"columns": ["gene_group", "gene_class"],
+			"target_columns": ["gene_biogroup", "gene_functional_class"],
+			"annotation": ["label", "label"] 
+		},
+		{
+			"file": "annot_table2.tsv",
+			"separator": "\t",
+			"key_column": "id",
+			"columns": ["tfs", "splice"],
+			"target_columns": ["is_TF", "is_splicing"],
+			"annotation": ["boolean", "boolean"]
+		}
+	],
+	"gene_lists": [
+		{
+			"file": "list1.txt",
+			"label": "list1_label",
+			"target_columns": ["gene_labels"],
+			"annotation": ["label"]
+		},
+		{
+			"file": "list2.txt",
+			"label": "list2_label",
+			"target_columns": ["gene_labels"],
+			"annotation": ["label"]
+		},
+		{
+			"file": "list3.txt",
+			"label": "list3_label",
+			"target_columns": ["gene_labels"],
+			"annotation": ["label"]
+		}
+	]
+}

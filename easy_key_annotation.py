@@ -92,7 +92,7 @@ def main():
     logger = logging.getLogger("main")
 
     # Define arguments
-    parser = argparse.ArgumentParser("Easy Key Annotation v{}".format(VERSION))
+    parser = argparse.ArgumentParser(description="Annotate a key column in a file with additional information from other files")
     parser.add_argument("--input", type=str, required=True, help="Path to the input file")
     parser.add_argument("--output", type=str, required=True, help="Path to the output file")
     parser.add_argument("--config", type=str, required=True, help="Path to the configuration JSON file")
