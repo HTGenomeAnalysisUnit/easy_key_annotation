@@ -33,10 +33,10 @@ def check_keys(config_dict, expected_keys):
         expected_keys: A list of expected keys.
 
     Returns:
-        True if the config file contains the expected keys, False otherwise.
+        (True, "") if the config file contains the expected keys, (False, missing_key) otherwise.
     """
     for key in expected_keys:
-        if key not in dataset_config:
+        if key not in config_dict:
             return(False, key)
     return (True, "")
 
@@ -47,7 +47,7 @@ def check_config(config):
         config: The config dictionary.
 
     Returns:
-        True if the config file is valid, False otherwise.
+        True if the config file is valid, error and exit otherwise.
     """
     if not isinstance(config, dict):
         logger.error("Config file is malformed")
@@ -70,7 +70,7 @@ def check_config(config):
             logger.error(f"Columns, target_columns and annotation lists must be the same length for table dataset {k}: {dataset_config['file']}")
             exit(1)
 
-        status_ok, failed_key = check_key(dataset_config,EXPECTED_KEYS_TABLE)
+        status_ok, failed_key = check_keys(dataset_config,EXPECTED_KEYS_TABLE)
         if not status_ok:
             logger.error(f"Key {failed_key} not found in table dataset {k}: {dataset_config['file']}")
             exit(1)
@@ -80,7 +80,7 @@ def check_config(config):
             logger.error(f"Target_columns and annotation lists must be the same length for gene_list dataset {k}: {dataset_config['file']}")
             exit(1)        
 
-        status_ok, failed_key = check_key(dataset_config,EXPECTED_KEYS_LIST)
+        status_ok, failed_key = check_keys(dataset_config,EXPECTED_KEYS_LIST)
         if not status_ok:
             logger.error(f"Key {failed_key} not found in gene_list dataset {k}: {dataset_config['file']}")
 
@@ -137,8 +137,7 @@ def main():
     df.set_index(key_column, inplace=True, drop=False)
 
     # Perform sanity check on config file
-    # Check that all table keys have an existing file, the expected keys and that the target columns, columns and annotation lists are the same length
-    
+    check_config(config)
         
     # Read annotation and merge them in df
     # Here we also keep track if a target column is present multiple times
